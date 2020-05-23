@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter,Route, Switch, Redirect } from "react-router-dom";
-import {HomeComponent} from './components/home/home';
+import HomeContainer from './components/home/home-container';
 import {My404Component} from './components/error/404';
 import {MobileInfoComponent} from './components/mobile-info/mobile-info';
 import {CartComponent} from './components/cart/cart';
@@ -29,7 +29,7 @@ function App() {
                     <Route
                         exact
                         path="/"
-                        component={HomeComponent} />
+                        component={HomeContainer} />
                     <Redirect from='*' to='/' />
                     </Switch>
                     </BrowserRouter>

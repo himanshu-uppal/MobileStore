@@ -1,9 +1,21 @@
 import React from 'react';
 import {MobileListComponent} from '../mobile-list/mobile-list';
-export let HomeComponent = () =>{
-    return (
-<React.Fragment>
-<MobileListComponent></MobileListComponent>
-</React.Fragment>
-    )
+export class HomeComponent extends React.Component 
+{
+    constructor(props){
+        super(props);
+        console.log(props);
+        props.getMobiles();
+    }
+ 
+    render(){
+        let { isLoading, mobiles} = this.props
+        return (
+            <React.Fragment>
+            <MobileListComponent mobiles={mobiles} />
+            </React.Fragment>
+                )
+
+    }
+  
 }
