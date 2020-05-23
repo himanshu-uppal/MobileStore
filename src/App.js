@@ -2,24 +2,20 @@ import React from 'react';
 import { BrowserRouter,Route, Switch, Redirect } from "react-router-dom";
 import HomeContainer from './components/home/home-container';
 import {My404Component} from './components/error/404';
-import {MobileInfoComponent} from './components/mobile-info/mobile-info';
+import MobileInfoContainer from './components/mobile-info/mobile-info-container';
 import {CartComponent} from './components/cart/cart';
 import { LoginComponent } from './components/login/login';
-import {Header} from './components/header/header'
-var ES6Promise = require("es6-promise");
-ES6Promise.polyfill();
 
 function App() {
   return (
    <React.Fragment>   
-   <BrowserRouter>
-   <Header></Header>
+   <BrowserRouter>   
    <Switch>   
   
                          <Route
                         exact
-                        path="/product-info"
-                        component={MobileInfoComponent} />
+                        path="/product-info/:productId"
+                        component={MobileInfoContainer} />
                          <Route
                         exact
                         path="/cart"

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/mobile-list.css';
+import {Link} from 'react-router-dom';
 export let MobileListComponent = (props) =>{
   
   let mobileListContent = props.mobiles ? props.mobiles.map((mobile)=>{
@@ -12,7 +13,7 @@ export let MobileListComponent = (props) =>{
           </div>
           </a>
           <div className="thumb-content">
-          <a href="#"> <h4>{mobile.name}</h4></a>
+          <Link exact activeClassName="current" to={`/product-info/${mobile.id}`}> <h4>{mobile.name}</h4></Link>
             <p className="item-price"><strike>${mobile.originalPrice}</strike> <span>${mobile.discountedPrice}</span></p>
             <div className="star-rating">
               <ul className="list-inline">
