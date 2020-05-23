@@ -1,7 +1,15 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-export let Header = () =>{
+export let Header = (props) =>{
+
+  let onSearch = (event) =>{
+
+    console.log(event.target.value);
+    event.preventDefault();
+   props.updateSearchCriteria(event.target.value);
+
+  }
     return(
         <React.Fragment>
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,8 +35,7 @@ export let Header = () =>{
       </li>
     </ul>
     <form className="form-inline my-2 my-lg-0">
-      <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={onSearch} />
     </form>
   </div>
 </nav>

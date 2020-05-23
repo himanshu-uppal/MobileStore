@@ -1,12 +1,33 @@
 import * as actionTypes from "./action-types";
 
-export const fetchMobiles = () => {
+export const fetchMobiles = (args) => {
     return function(dispatch) {
         dispatch({
           type: actionTypes.FETCH_MOBILES.REQUEST,
         });
+
+        console.log(args);
+        let queryParamsArray = [];
+        let searchText = args && args.searchText;
+
+        if(searchText && searchText.trim() !== ''){
+          queryParamsArray.push({key : 'q', value:searchText});
+        }
+
+        let queryString  = '';
+        if(queryParamsArray.length > 0)
+        queryString = '?'
+
+        for(let queryParam of queryParamsArray){
+          if(queryString !== '?'){
+            queryString = queryString + '&'
+          }
+          queryString = queryString + queryParam.key + '=' + queryParam.value
+        }        
         
-      fetch("http://localhost:3000/products")
+        let url = "http://localhost:3000/products" + queryString;
+        console.log('url - ' + url);
+      fetch(url)
         .then(response => response.json())
         .then(data => dispatch({
             type: actionTypes.FETCH_MOBILES.SUCCESS,
