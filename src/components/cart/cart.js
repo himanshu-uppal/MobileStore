@@ -1,10 +1,26 @@
 import React from 'react';
 import '../../styles/cart.css';
-export let CartComponent = () =>{
+import {Header} from '../header/header';
+import {CartProductComponent} from './cart-product';
+export class CartComponent extends React.Component{
+
+    constructor(props){
+        super(props);
+        console.log(props);
+        console.log(props.cart);
+    }
+
+
+    render(){
+
+        let {cart} = this.props;
     return (
 <React.Fragment>
+<Header></Header>
+
 <div className="container">
-    <div className="row">
+<h3>Cart Details</h3>
+{cart && cart.length > 0 ? <div className="row">
         <div className="col-sm-12 col-md-10 col-md-offset-1">
             <table className="table table-hover">
                 <thead>
@@ -17,47 +33,8 @@ export let CartComponent = () =>{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td className="col-sm-8 col-md-6">
-                        <div className="media">
-                            <a className="cart-product-image thumbnail pull-left" href="#"> <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" /> </a>
-                            <div className="media-body">
-                                <h4 className="media-heading"><a href="#">Product name</a></h4>
-                                <h5 className="media-heading"> by <a href="#">Brand name</a></h5>
-                                <span>Status: </span><span className="text-success"><strong>In Stock</strong></span>
-                            </div>
-                        </div></td>
-                        <td className="col-sm-1 col-md-1" >
-                        <input type="email" className="form-control" id="exampleInputEmail1" value="3" />
-                        </td>
-                        <td className="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
-                        <td className="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
-                        <td className="col-sm-1 col-md-1">
-                        <button type="button" className="btn btn-danger">
-                            <span className="glyphicon glyphicon-remove"></span> Remove
-                        </button></td>
-                    </tr>
-                    <tr>
-                        <td className="col-md-6">
-                        <div className="media">
-                            <a className="cart-product-image thumbnail pull-left" href="#"> <img className="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"  /> </a>
-                            <div className="media-body">
-                                <h4 className="media-heading"><a href="#">Product name</a></h4>
-                                <h5 className="media-heading"> by <a href="#">Brand name</a></h5>
-                                <span>Status: </span><span className="text-warning"><strong>Leaves warehouse in 2 - 3 weeks</strong></span>
-                            </div>
-                        </div></td>
-                        <td className="col-md-1 center">
-                        <input type="email" className="form-control" id="exampleInputEmail1" value="2" />
-                        </td>
-                        <td className="col-md-1 text-center"><strong>$4.99</strong></td>
-                        <td className="col-md-1 text-center"><strong>$9.98</strong></td>
-                        <td className="col-md-1">
-                        <button type="button" className="btn btn-danger">
-                            <span className="glyphicon glyphicon-remove"></span> Remove
-                        </button></td>
-                    </tr>
-                    <tr>
+                 <CartProductComponent cartProducts= {cart} />
+                                       <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
@@ -83,9 +60,7 @@ export let CartComponent = () =>{
                         <td>   </td>
                         <td>   </td>
                         <td>
-                        <button type="button" className="btn btn-default">
-                            <span className="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                        </button></td>
+                       </td>
                         <td>
                         <button type="button" className="btn btn-success">
                             Checkout <span className="glyphicon glyphicon-play"></span>
@@ -94,9 +69,11 @@ export let CartComponent = () =>{
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> : <h4>Oops ! Cart is Empty .</h4>}
+    
 </div>
 
 </React.Fragment>
     )
+    }
 }

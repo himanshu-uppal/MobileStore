@@ -10,16 +10,22 @@ export const fetchMobiles = (args) => {
         let queryParamsArray = [];
         let searchText = args && args.searchText;
         let sortOrder = args && args.sorting;
+        let pagination =  args.pagination;
 
         if(searchText && searchText.trim() !== ''){
           queryParamsArray.push({key : 'q', value:searchText});
         }
 
-        if(sortOrder){
+        if(sortOrder !== null){
+          console.log(sortOrder);
           queryParamsArray.push({key : '_sort', value:'discountedPrice'});
           let order = sortOrder === 0 ? 'asc' : 'desc';
           queryParamsArray.push({key : '_order', value:order});
         }
+
+        //pagination
+        queryParamsArray.push({key : '_start', value:pagination.start});
+        queryParamsArray.push({key : '_end', value:pagination.end});
 
         let queryString  = '';
         if(queryParamsArray.length > 0)
@@ -36,10 +42,12 @@ export const fetchMobiles = (args) => {
         console.log('url - ' + url);
       fetch(url)
         .then(response => response.json())
-        .then(data => dispatch({
+        .then(data =>{
+         
+           dispatch({
             type: actionTypes.FETCH_MOBILES.SUCCESS,
             payload: data
-          }))
+          })})
         .catch(error => dispatch({
             type: actionTypes.FETCH_MOBILES.FAILURE,
             payload: error
@@ -94,3 +102,13 @@ export const updateSortOrder = orderCode => {
 
 
 
+export const addToCart = (args) => {
+  let mobileId = args;
+  return function(dispatch) {
+      dispatch({
+        type: actionTypes.ADD_PRODUCT_TO_CART.REQUEST,
+        payload: mobileId
+      });    
+   
+}
+}

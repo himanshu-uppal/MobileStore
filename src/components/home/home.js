@@ -1,35 +1,70 @@
 import React from 'react';
 import {MobileListComponent} from '../mobile-list/mobile-list';
 import {Header} from '../header/header';
+const pageSize = 5;
 export class HomeComponent extends React.Component 
 {
     constructor(props){
         super(props);
         console.log(props);
-        props.getMobiles({searchText:this.props.searchCriteria, sorting : this.props.orderCode});
+        this.state = {
+            currentPageNumber : 1
+        }       
 
+        this.getMobiles();
+
+      
         this.updateSearchCriteria = this.updateSearchCriteria.bind(this);
         this.sortList = this.sortList.bind(this);
+        this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
-    updateSearchCriteria (searchText){
+   async updateSearchCriteria (searchText){
       
-        this.props.updateSearchCriteria(searchText);
-        this.props.getMobiles({searchText:searchText, sorting : this.props.orderCode});
+       await this.props.updateSearchCriteria(searchText);
+        this.getMobiles();
+        
     }
 
-   sortList (orderCode) {
-    this.props.updateSortOrder(orderCode);
-     console.log('Home - orderCode - ' + orderCode);
-        this.props.getMobiles({ searchText:this.props.searchCriteria,sorting : orderCode});
+  async sortList (orderCode) {
+    await this.props.updateSortOrder(orderCode);
+    this.getMobiles();
+    
+    }
+
+    async handlePagination(pageNumber) {
+        this.setState({ currentPageNumber : pageNumber }, this.getMobiles);
+      }
+
+    getMobiles(){
+        let pageNumber = this.state.currentPageNumber;
+    
+
+        let start = pageNumber*pageSize - pageSize;
+        let end =  pageNumber*pageSize;
+        this.props.getMobiles({searchText:this.props.searchCriteria, sorting : this.props.orderCode, pagination : {
+            start : start, end :end
+        }});
+    }
+
+    handleAddToCart(productId){
+
+        this.props.addToCart(productId);
+
     }
  
     render(){
-        let { isLoading, mobiles} = this.props
+        let { isLoading, mobiles,totalMobiles} = this.props;
+        
         return (
             <React.Fragment>
-            <Header onSearchUpdate={this.updateSearchCriteria}></Header>
-            <MobileListComponent orderCode={this.props.orderCode} mobiles={mobiles} handleSorting={this.sortList} />
+            <Header ></Header>
+            <MobileListComponent orderCode={this.props.orderCode} mobiles={mobiles} handleSorting={this.sortList}   handlePagination={this.handlePagination}
+              totalMobiles={totalMobiles}
+              pageNumber={this.state.currentPageNumber}
+              handleAddToCart={this.handleAddToCart}
+              onSearchUpdate={this.updateSearchCriteria}
+              />
             </React.Fragment>
                 )
 

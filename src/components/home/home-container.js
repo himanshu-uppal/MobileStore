@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchMobiles,updateSearchCriteria, updateSortOrder } from '../../redux/actions/actions'
+import { fetchMobiles,updateSearchCriteria, updateSortOrder, addToCart } from '../../redux/actions/actions'
 import { withRouter } from 'react-router-dom';
 import {HomeComponent} from './home';
 
@@ -22,6 +22,7 @@ const mapDispatchToProps = dispatch => ({
     getMobiles: (args) => dispatch(fetchMobiles(args)),
     updateSearchCriteria : (searchText) => dispatch(updateSearchCriteria(searchText)),
     updateSortOrder : (orderCode) => dispatch(updateSortOrder(orderCode)),
+    addToCart : (productId) => dispatch(addToCart(productId))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeComponent));

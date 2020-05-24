@@ -3,7 +3,7 @@ import { BrowserRouter,Route, Switch, Redirect } from "react-router-dom";
 import HomeContainer from './components/home/home-container';
 import {My404Component} from './components/error/404';
 import MobileInfoContainer from './components/mobile-info/mobile-info-container';
-import {CartComponent} from './components/cart/cart';
+import CartContainer from './components/cart/cart-container';
 import { LoginComponent } from './components/login/login';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
                          <Route
                         exact
                         path="/cart"
-                        component={CartComponent} />
+                        component={CartContainer} />
                     <Route exact path='/404' component={My404Component} />
                     <Route exact path='/login' component={LoginComponent} />
                     <Route

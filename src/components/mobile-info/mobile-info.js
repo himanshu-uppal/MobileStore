@@ -7,7 +7,14 @@ export class MobileInfoComponent extends React.Component{
 		super(props);	
 		let productId = props.match.params.productId;
 		props.getMobile({id:productId});
+		this.handleAddToCart = this.handleAddToCart.bind(this);
 	}
+
+	handleAddToCart(productId){
+
+        this.props.addToCart(productId);
+
+    }
 
 	render(){	
 	let {isLoading,mobile} = this.props;
@@ -63,7 +70,7 @@ export class MobileInfoComponent extends React.Component{
 							<span className="color blue"></span>
 						</h5>
 						<div className="action">
-							<button className="add-to-cart btn btn-default" type="button">add to cart</button>
+							<button className="add-to-cart btn btn-default" type="button" onClick={() => this.handleAddToCart(mobile.id)}>Add to cart</button>
 							<button className="like btn btn-default" type="button"><span className="fa fa-heart"></span></button>
 						</div>
 					</div>
