@@ -35,6 +35,10 @@ export let MobileListComponent = (props) =>{
     <div className="row">
       <div className="col-md-12">
         <h2>Trending <b>Products</b></h2>
+        <div> Sort List -> 
+        <button onClick={() => props.handleSorting(0) }  className={props.orderCode === 0 ? 'sorting-active' : ''} >Price Low to High</button>
+        <button onClick={() => props.handleSorting(1)} className={props.orderCode === 1 ? 'sorting-active' : ''}  >Price High to Low</button>
+        </div>
         <div id="myCarousel" className="carousel slide" data-ride="carousel" data-interval="0">
       
         <div className="carousel-inner">

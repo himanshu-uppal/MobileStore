@@ -9,9 +9,16 @@ export const fetchMobiles = (args) => {
         console.log(args);
         let queryParamsArray = [];
         let searchText = args && args.searchText;
+        let sortOrder = args && args.sorting;
 
         if(searchText && searchText.trim() !== ''){
           queryParamsArray.push({key : 'q', value:searchText});
+        }
+
+        if(sortOrder){
+          queryParamsArray.push({key : '_sort', value:'discountedPrice'});
+          let order = sortOrder === 0 ? 'asc' : 'desc';
+          queryParamsArray.push({key : '_order', value:order});
         }
 
         let queryString  = '';
@@ -61,3 +68,29 @@ export const fetchMobile = (args) => {
         }))
 }
 }
+
+export const updateSearchCriteria = searchText => {
+
+  return function(dispatch) {
+    dispatch({
+      type : actionTypes.UPDATE_SEARCH_CRITERIA,
+      payload : searchText
+    });   
+
+}
+}
+
+export const updateSortOrder = orderCode => {
+
+  return function(dispatch) {
+    dispatch({
+      type : actionTypes.UPDATE_SORT_ORDER,
+      payload : orderCode
+    });   
+
+}
+}
+
+
+
+

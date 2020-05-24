@@ -5,6 +5,10 @@
 
 }
 
+.sorting-active{
+	background-color: #86bd57;
+}
+
 
 body {
 	font-family: "Open Sans", sans-serif;

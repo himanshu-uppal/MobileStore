@@ -7,7 +7,7 @@ export let Header = (props) =>{
 
     console.log(event.target.value);
     event.preventDefault();
-   props.updateSearchCriteria(event.target.value);
+   props.onSearchUpdate(event.target.value);
 
   }
     return(
