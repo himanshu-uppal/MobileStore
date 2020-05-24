@@ -1,17 +1,21 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import {CartComponent} from './cart';
+import {removeProductFromCart, fetchCartProducts, updateCartProductQuantity} from '../../redux/actions/actions';
 
 const mapStateToProps = (state) => {
  
-    let {cart} = state.cart;
+    let {cart,cartProducts} = state.cart;
     return {
-        cart
+        cart,
+        cartProducts
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-   
+    removeProductFromCart : (productId) => dispatch(removeProductFromCart(productId)),
+    getCartProducts : (cart) => dispatch(fetchCartProducts(cart)),
+    updateCartProductQuantity : (productId,quantity) => dispatch(updateCartProductQuantity(productId,quantity))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartComponent));

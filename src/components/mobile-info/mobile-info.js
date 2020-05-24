@@ -10,9 +10,9 @@ export class MobileInfoComponent extends React.Component{
 		this.handleAddToCart = this.handleAddToCart.bind(this);
 	}
 
-	handleAddToCart(productId){
+ handleAddToCart(productId){
 
-        this.props.addToCart(productId);
+      this.props.addToCart(productId);
 
     }
 

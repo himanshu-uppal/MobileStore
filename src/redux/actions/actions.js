@@ -112,3 +112,64 @@ export const addToCart = (args) => {
    
 }
 }
+
+export const removeProductFromCart = (args) => {
+  let mobileId = args;
+  return function(dispatch) {
+      dispatch({
+        type: actionTypes.REMOVE_PRODUCT_FROM_CART.REQUEST,
+        payload: mobileId
+      });    
+   
+}
+}
+
+export const fetchCartProducts = (args) =>{
+  let cart = args;
+  console.log(cart);
+  return function(dispatch) {
+    dispatch({
+      type: actionTypes.FETCH_CART_PRODUCTS.REQUEST,
+      payload: cart
+    });    
+
+    let queryString = '?' ;
+
+    for(let cartProduct of cart){
+      if(queryString !== '?')
+      queryString = queryString + '&'
+      queryString = queryString + 'id=' + cartProduct.id
+    }
+
+
+    let url = "http://localhost:3000/products" + queryString;
+    console.log('url - ' + url);
+  fetch(url)
+    .then(response => response.json())
+    .then(data =>{
+     
+       dispatch({
+        type: actionTypes.FETCH_CART_PRODUCTS.SUCCESS,
+        payload: data
+      })})
+    .catch(error => dispatch({
+        type: actionTypes.FETCH_CART_PRODUCTS.FAILURE,
+        payload: error
+      }))
+ 
+}
+}
+
+export const updateCartProductQuantity = (productId, quantity) => {
+ 
+  return function(dispatch) {
+      dispatch({
+        type: actionTypes.UPDATE_CART_PRODUCT_QUANTITY,
+        payload: {
+          productId,
+          quantity
+        }
+      });    
+   
+}
+}
