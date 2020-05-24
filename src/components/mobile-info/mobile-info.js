@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import '../../styles/mobile-info.css';
 import {Header} from  '../header/header';
-export let MobileInfoComponent = (props) =>{
-	useEffect(()=>{
+export class MobileInfoComponent extends React.Component{
+	
+	constructor(props){
+		super(props);	
 		let productId = props.match.params.productId;
 		props.getMobile({id:productId});
-	})
-	
-	let {isLoading,mobile} = props;
+	}
+
+	render(){	
+	let {isLoading,mobile} = this.props;
     return (
 	
 <React.Fragment>
@@ -71,4 +74,5 @@ export let MobileInfoComponent = (props) =>{
 
 </React.Fragment>
     )
+}
 }
