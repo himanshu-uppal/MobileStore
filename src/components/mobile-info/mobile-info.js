@@ -17,11 +17,11 @@ export class MobileInfoComponent extends React.Component{
     }
 
 	render(){	
-	let {isLoading,mobile} = this.props;
+	let {isLoading,mobile, handleLogout} = this.props;
     return (
 	
 <React.Fragment>
-<Header></Header>
+<Header  handleLogout={handleLogout}></Header>
  <div className="container">
 		<div className="card">
 			<div className="container-fliud">

@@ -173,3 +173,14 @@ export const updateCartProductQuantity = (productId, quantity) => {
    
 }
 }
+
+export const emptyCartAndProducts = () =>{
+
+  return function(dispatch) {
+    dispatch({
+      type: actionTypes.EMPTY_CART_PRODUCTS     
+    });    
+ 
+}
+
+}

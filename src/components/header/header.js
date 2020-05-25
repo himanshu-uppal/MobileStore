@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
-
+import AuthContext from '../../context/auth-context';
 export let Header = (props) =>{
+
+  let {handleLogout} = props;
+  const authContext = useContext(AuthContext) 
+
+  console.log(authContext);
 
     return(
         <React.Fragment>
@@ -20,12 +25,12 @@ export let Header = (props) =>{
       <NavLink exact activeClassName="current" className="nav-link" to='/cart'>Cart</NavLink>
       </li>
      
-      <li className="nav-item">
+      {authContext.authenticated ?  '' : <li className="nav-item">
       <NavLink exact activeClassName="current" className="nav-link" to='/login'>Login</NavLink>
-      </li>
-      <li className="nav-item">
-      <NavLink exact activeClassName="current" className="nav-link" to='/logout'>Logout</NavLink>
-      </li>
+      </li>}
+     {authContext.authenticated ? <li className="nav-item">
+      <button exact activeClassName="current" className="nav-link" onClick={handleLogout}>Logout</button>
+      </li> : ''} 
     </ul>
  
   </div>
@@ -33,3 +38,4 @@ export let Header = (props) =>{
         </React.Fragment>
     )
 }
+

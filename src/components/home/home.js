@@ -54,11 +54,11 @@ export class HomeComponent extends React.Component
     }
  
     render(){
-        let { isLoading, mobiles,totalMobiles} = this.props;
+        let { isLoading, mobiles,totalMobiles, handleLogout} = this.props;
         
         return (
             <React.Fragment>
-            <Header ></Header>
+            <Header handleLogout={handleLogout} ></Header>
             <MobileListComponent orderCode={this.props.orderCode} mobiles={mobiles} handleSorting={this.sortList}   handlePagination={this.handlePagination}
               totalMobiles={totalMobiles}
               pageNumber={this.state.currentPageNumber}

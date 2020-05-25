@@ -2,14 +2,21 @@ import React from 'react';
 import '../../styles/cart.css';
 import {Header} from '../header/header';
 import {CartProductComponent} from './cart-product';
+import AuthContext from '../../context/auth-context';
 export class CartComponent extends React.Component{
+
+    static contextType = AuthContext;
 
     constructor(props){
         super(props);
+        this.state = {
+            orderId : null
+        }
         console.log(props);
         console.log(props.cart);
         this.handleCartProductRemove = this.handleCartProductRemove.bind(this);
         this.handleQuantityUpdate = this.handleQuantityUpdate.bind(this);
+        this.handleCheckout = this.handleCheckout.bind(this);
         this.props.getCartProducts(props.cart);
     }
 
@@ -33,13 +40,23 @@ export class CartComponent extends React.Component{
 
     }
 
+    handleCheckout(){
+
+        console.log('checkout')
+        this.setState({orderId : 'ORD-456@3428'})
+
+        this.props.emptyCartAndProducts();
+        this.props.getCartProducts(this.props.cart);
+
+    }
+
     render(){
 
-        let {cart,cartProducts} = this.props;
+        let {cart,cartProducts,handleLogout} = this.props;
 
     return (
 <React.Fragment>
-<Header></Header>
+<Header  handleLogout={handleLogout}></Header>
 
 <div className="container">
 <h3>Cart Details</h3>
@@ -85,14 +102,20 @@ export class CartComponent extends React.Component{
                         <td>
                        </td>
                         <td>
-                        <button type="button" className="btn btn-success">
+                        {!this.context.authenticated ? 'Please login for checkout' : ''}
+                       
+                              <button type="button" className="btn btn-success" disabled={!this.context.authenticated} onClick={this.handleCheckout}>
                             Checkout <span className="glyphicon glyphicon-play"></span>
-                        </button></td>
+                        </button>
+                      
+                     </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div> : <h4>Oops ! Cart is Empty .</h4>}
+
+    {this.state.orderId && <h2> Your order is placed with id - {this.state.orderId }</h2>}
     
 </div>
 

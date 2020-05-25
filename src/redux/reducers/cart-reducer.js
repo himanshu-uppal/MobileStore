@@ -1,5 +1,5 @@
 import {
-    ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART, FETCH_CART_PRODUCTS, UPDATE_CART_PRODUCT_QUANTITY
+    ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART, FETCH_CART_PRODUCTS, UPDATE_CART_PRODUCT_QUANTITY, EMPTY_CART_PRODUCTS
 } from "../actions/action-types";
 
 const initialState = {
@@ -96,6 +96,18 @@ export const cartReducer = (state = initialState, action) => {
                     cart: existingCart,
                     cartProducts :existingCartProducts
                 }
+
+                case EMPTY_CART_PRODUCTS:
+                    {
+               
+    
+              
+                return { 
+                    ...state,
+                    cart: [],
+                    cartProducts :[]
+                }
+            }
         default:
             return state;
     }
